@@ -32,6 +32,18 @@ public class LoginPage {
         return driver.findElement(By.id("prikazi_reset_formu"));
     }
 
+    public WebElement getErrorMsg(){
+        return driver.findElement( By.xpath(
+                        "//div[contains(text(), "
+                                + "'pogrešno korisničko ime ili šifru')]"
+                )
+        );
+    }
+
+    public String getActualUrl(){
+        return driver.getCurrentUrl();
+    }
+
     //-------------------------------------------------------------------
 
 
