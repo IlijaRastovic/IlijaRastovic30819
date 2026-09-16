@@ -4,12 +4,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.Keys;
 
 import java.util.List;
 
 public class LoginPage {
 
     WebDriver driver;
+
+    public void pressTab(){
+        driver.switchTo().activeElement().sendKeys(Keys.TAB);
+    }
 
 
     public LoginPage(WebDriver driver) {
@@ -47,12 +52,12 @@ public class LoginPage {
     //-------------------------------------------------------------------
 
 
-    public void enterValidUsername(String username){
+    public void enterUsername(String username){
         getUsernameField().clear();
         getUsernameField().sendKeys(username);
     }
 
-    public void enterValidPassword(String password){
+    public void enterPassword(String password){
         getPasswordField().clear();
         getPasswordField().sendKeys(password);
     }
@@ -66,10 +71,4 @@ public class LoginPage {
     }
 
 
-
-    public void loginWithValidCredentials(String username, String password){
-        enterValidUsername(username);
-        enterValidPassword(password);
-        clickLoginButton();
-    }
 }

@@ -3,11 +3,8 @@ package Tests;
 import Base.BaseTest;
 import Pages.HomePage;
 import Pages.LoginPage;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import TestData.CredentialBuilderHelper;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.annotations.DataProvider;
@@ -31,7 +28,6 @@ public class LoginTest extends BaseTest {
         homePage = new HomePage(driver);
     }
 
-
     @DataProvider(name = "invalidCredentials")
     public Object[][] invalidCredentials() {
 
@@ -49,20 +45,21 @@ public class LoginTest extends BaseTest {
         return data;
     }
 
+   //------------------------------------TESTS-----------------------------------------------------------
 
 
-    @Test (priority = 2)
+
+    @Test (priority = 90)
     public void shouldLoginWithValidCredentials() {
         int rowNumber = 1;
         String username = excelReader.getStringData("Sheet1", rowNumber,0);
         String password = excelReader.getStringData("Sheet1", rowNumber,1);
 
-        loginPage.enterValidUsername(username);
-        loginPage.enterValidPassword(password);
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password");
         loginPage.clickLoginButton();
         homePage.waitForDashboard();
-
-
 
         Assert.assertTrue(homePage.getActualUrl().contains("index.php"));
         Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"));
@@ -72,14 +69,13 @@ public class LoginTest extends BaseTest {
     }
 
 
+    //Using Data Provider
+    @Test (dataProvider = "invalidCredentials", priority = 10)
+    public void shouldNotLoginWithInvalidCredentials(String username, String password) {
 
-    @Test (dataProvider = "invalidCredentials", priority = 1)
-    public void shouldNotLoginWithInvalidCredentials(
-            String username,
-            String password
-    ) {
-        loginPage.enterValidUsername(username);
-        loginPage.enterValidPassword(password);
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password");
         loginPage.clickLoginButton();
 
         Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Error msg is shown");
@@ -87,8 +83,103 @@ public class LoginTest extends BaseTest {
 
     }
 
+    @Test (priority = 20)
+    public void shouldNotLoginWithEmptyPassword() {
+        int rowNumber = 1;
+        String username = excelReader.getStringData("Sheet1", rowNumber,0);
+        String password = "";
+
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password");
+        loginPage.clickLoginButton();
+
+        Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Error msg is shown");
+        Assert.assertEquals(loginPage.getActualUrl(), driver.getCurrentUrl());
+
+    }
+
+
+    @Test (priority = 30)
+    public void shouldNotLoginWithEmptyUsername() {
+        int rowNumber = 1;
+        String username = "";
+        String password = excelReader.getStringData("Sheet1", rowNumber, 1);
+
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password");
+        loginPage.clickLoginButton();
+
+        Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Error msg is shown");
+        Assert.assertEquals(loginPage.getActualUrl(), driver.getCurrentUrl());
+
+    }
+
+
+    @Test (priority = 40)
+    public void shouldNotLoginWithChangedPasswordCase() {
+
+        int rowNumber = 1;
+        String username = excelReader.getStringData("Sheet1", rowNumber, 0);
+        String validPassword = excelReader.getStringData("Sheet1", rowNumber, 1);
+        String invalidPassword = CredentialBuilderHelper.swapLetterCase(validPassword);
+
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(invalidPassword);
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password");
+        loginPage.clickLoginButton();
+
+        Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Error msg is shown");
+        Assert.assertEquals(loginPage.getActualUrl(), driver.getCurrentUrl());
+    }
+
+    @Test (priority = 50)
+    public void shouldLoginWithChangedUsernameCase() {
+
+        int rowNumber = 1;
+        String validUsername = excelReader.getStringData("Sheet1", rowNumber, 0);
+        String validPassword = excelReader.getStringData("Sheet1", rowNumber, 1);
+        String invalidUsername = CredentialBuilderHelper.swapLetterCase(validUsername);
+
+        loginPage.enterUsername(invalidUsername);
+        loginPage.enterPassword(validPassword);
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password");
+        loginPage.clickLoginButton();
+        homePage.waitForDashboard();
+
+        Assert.assertTrue(homePage.getActualUrl().contains("index.php"));
+        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"));
+        Assert.assertEquals(homePage.getPageTitle(), "Link Elearning");
+        Assert.assertTrue(homePage.getProfileImage().isDisplayed());
+
+
+    }
+
+
+    @Test (priority = 9)
+    public void shouldMoveFocusWithTab() {
+
+        loginPage.getUsernameField().click();
+
+        Assert.assertEquals(driver.switchTo().activeElement(), loginPage.getUsernameField());
+
+        loginPage.pressTab();
+
+        Assert.assertEquals(driver.switchTo().activeElement(), loginPage.getPasswordField());
+
+        loginPage.pressTab();
+
+        Assert.assertEquals(driver.switchTo().activeElement(),loginPage.getLoginButton());
+
+        loginPage.pressTab();
+
+        Assert.assertEquals(driver.switchTo().activeElement(), loginPage.getForgotPassword());
+    }
+
+
     //Helper test
-    @Test
+   /* @Test
     public void testtestInvalid() {
         int rowNumber = 1;
         String username = "blabla";
@@ -100,8 +191,9 @@ public class LoginTest extends BaseTest {
 
         Assert.assertEquals(loginPage.getActualUrl(), driver.getCurrentUrl());
 
-
     }
+
+    */
 }
 
 
