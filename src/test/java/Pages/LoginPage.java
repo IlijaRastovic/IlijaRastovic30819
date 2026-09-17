@@ -66,9 +66,14 @@ public class LoginPage {
         getLoginButton().click();
     }
 
+    public void shouldLogIn(String username, String password){
+        enterUsername(username);
+        enterPassword(password);
+        clickLoginButton();
+    }
+
     public void clickForgotPassword(){
         getForgotPassword().click();
     }
-
 
 }

@@ -48,6 +48,39 @@ public class HomePage {
     }
 
 
+    public WebElement getLiveClassPanel() {
+        return driver.findElement(By.id("panel_101"));
+    }
+
+    public WebElement getMessagesPanel() {
+        return driver.findElement(By.id("panel_102"));
+    }
+
+    public WebElement getWhiteboardPanel() {
+        return driver.findElement(By.id("panel_103"));
+    }
+
+    public WebElement getChatPanel() {
+        return driver.findElement(By.id("panel_105"));
+    }
+
+    public WebElement getCvPanel() {
+        return driver.findElement(By.id("panel_106"));
+    }
+
+    public WebElement getOtherServicesPanel() {
+        return driver.findElement(By.id("panel_107"));
+    }
+
+    public WebElement getTechnicalSupportPanel() {
+        return driver.findElement(By.id("panel_108"));
+    }
+
+    public WebElement getDashboardSettingsButton() {
+        return driver.findElement(By.cssSelector("#panel_101 i.podesavanja-popup-open"));
+    }
+
+
     public WebElement getSearchField() {
         return driver.findElement(By.id("txtSearchKeyword"));
     }
@@ -98,5 +131,35 @@ public class HomePage {
 
     public String getPageTitle() {
         return driver.getTitle();
+    }
+
+    public WebElement getDarkModeCheckBox() {
+        return driver.findElement(By.cssSelector("input[type='checkbox'][name='theme_mode']"));
+    }
+
+    public WebElement getSaveSettingsButton() {
+        return driver.findElement(By.cssSelector("button.yes-btn"));
+    }
+
+    //------------------------------------------------------------------------------------------
+
+    public void openDashboardSettings() {
+        getDashboardSettingsButton().click();
+    }
+
+    public void toggleDarkModeCheckBox() {
+        if(!getDarkModeCheckBox().isSelected()) {
+            getDarkModeCheckBox().click();
+        };
+    }
+
+    public void clickSaveSettingsButton() {
+        getSaveSettingsButton().click();
+    }
+
+    public boolean isDarkModeEnabled() {
+        return !driver.findElements(
+                By.cssSelector("link[href*='/css-dark-mode/style-its.css']")
+        ).isEmpty();
     }
 }
