@@ -4,8 +4,6 @@ import Base.BaseTest;
 import Pages.HomePage;
 import Pages.LoginPage;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -71,9 +69,15 @@ public class HomePageTests extends BaseTest {
     @Test(priority = 20)
     public void shouldCloseLiveClassPanel(){
         logInAsValidUser();
+        if (!homePage.isLiveClassPanelVisible()) {
+            homePage.openDashboardSettings();
+            homePage.toggleLiveClassPanel();
+            homePage.clickSaveSettingsButton();
+            homePage.waitForLiveClassPanelToBeVisible();
+        }
         homePage.closeLiveClassPanel();
 
-       // Assert.assertFalse(homePage.isLiveClassPanelVisible(),"Live class panel is still visible after clicking close.");
+        Assert.assertFalse(homePage.isLiveClassPanelVisible(), "Live class panel is still visible after clicking close.");
         Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"));
         Assert.assertTrue(homePage.getProfileImage().isDisplayed());
     }
@@ -81,11 +85,15 @@ public class HomePageTests extends BaseTest {
     @Test(priority = 30)
     public void shouldShowLiveClassPanel() {
         logInAsValidUser();
+        if (homePage.isLiveClassPanelVisible()) {
+            homePage.closeLiveClassPanel();
+        }
         homePage.openDashboardSettings();
         homePage.toggleLiveClassPanel();
         homePage.clickSaveSettingsButton();
+        homePage.waitForLiveClassPanelToBeVisible();
 
-        Assert.assertTrue(homePage.isLiveClassPanelVisible(), "Live class panel is not visibe");
+        Assert.assertTrue(homePage.isLiveClassPanelVisible(), "Live class panel is not visible after enabling it.");
         Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"));
         Assert.assertTrue(homePage.getProfileImage().isDisplayed());
     }
