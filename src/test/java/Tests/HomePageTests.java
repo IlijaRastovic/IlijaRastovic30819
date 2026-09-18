@@ -4,6 +4,8 @@ import Base.BaseTest;
 import Pages.HomePage;
 import Pages.LoginPage;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -55,10 +57,6 @@ public class HomePageTests extends BaseTest {
             return checkbox.isDisplayed() && checkbox.isEnabled();
         });
         homePage.toggleDarkModeCheckBox();
-        wait.until(webDriver -> {
-            WebElement saveButton = homePage.getSaveSettingsButton();
-            return saveButton.isDisplayed() && saveButton.isEnabled();
-        });
         homePage.clickSaveSettingsButton();
         wait.until(webDriver -> homePage.isDarkModeEnabled());
 
@@ -67,16 +65,29 @@ public class HomePageTests extends BaseTest {
         Assert.assertEquals(homePage.getPageTitle(), "Link Elearning");
         Assert.assertTrue(homePage.getProfileImage().isDisplayed());
 
-
-
-
-
-
-
-
-
-
     }
 
+
+    @Test(priority = 20)
+    public void shouldCloseLiveClassPanel(){
+        logInAsValidUser();
+        homePage.closeLiveClassPanel();
+
+       // Assert.assertFalse(homePage.isLiveClassPanelVisible(),"Live class panel is still visible after clicking close.");
+        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"));
+        Assert.assertTrue(homePage.getProfileImage().isDisplayed());
+    }
+
+    @Test(priority = 30)
+    public void shouldShowLiveClassPanel() {
+        logInAsValidUser();
+        homePage.openDashboardSettings();
+        homePage.toggleLiveClassPanel();
+        homePage.clickSaveSettingsButton();
+
+        Assert.assertTrue(homePage.isLiveClassPanelVisible(), "Live class panel is not visibe");
+        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"));
+        Assert.assertTrue(homePage.getProfileImage().isDisplayed());
+    }
 
 }
