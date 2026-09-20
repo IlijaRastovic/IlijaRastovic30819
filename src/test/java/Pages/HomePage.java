@@ -12,7 +12,9 @@ public class HomePage {
     private static final By LIVE_CLASS_CHECKBOX =
             By.cssSelector("input[type='checkbox'][name='show_portal_box[101]']");
     private static final By SAVE_SETTINGS_BUTTON = By.cssSelector("button.yes-btn");
-
+    private static final By FIRST_MESSAGE_LINK = By.cssSelector(
+            "#mess-content ul.messages > li.message:first-of-type > a.uvodnaPoruka"
+    );
 
     public void waitForDashboard() {
 
@@ -163,6 +165,20 @@ public class HomePage {
         return getLiveClassPanel().findElement(By.cssSelector("i.icon-close"));
     }
 
+    public WebElement getLoggedInUserName() {
+        return driver.findElement(By.cssSelector("span.d-md-down-none"));
+    }
+
+    public WebElement getNewMessagesLink() {return driver.findElement(By.cssSelector("a[href*='c=licnePoruke']"));
+    }
+
+
+    public WebElement getFirstMessageLink() {
+        return driver.findElement(FIRST_MESSAGE_LINK);
+    }
+
+
+
     //------------------------------------------------------------------------------------------
 
     public void openDashboardSettings() {
@@ -209,4 +225,43 @@ public class HomePage {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.invisibilityOf(panel));
     }
+
+    public void clickLoggedInUserName(){
+        getLoggedInUserName().click();
+    }
+
+    public void clickProfileImage(){
+        getProfileImage().click();
+    }
+
+    public void clickLogOutButton(){
+        getLogoutButton().click();
+    }
+
+    public void clickNewMessagesLink() {
+        getNewMessagesLink().click();
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.className("inbox")
+                ));
+    }
+
+    public void clickFirstMessageDeleteButton() {
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.cssSelector("li.message:first-of-type button.obrisi-poruku")
+                ))
+                .click();
+    }
+
+    public void clickFirstMessage() {
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(
+                        FIRST_MESSAGE_LINK
+                ))
+                .click();
+    }
 }
+
+

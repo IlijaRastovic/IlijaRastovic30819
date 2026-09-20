@@ -45,7 +45,13 @@ public class LoginPage {
         );
     }
 
-    public String getActualUrl(){
+    public String getExpectedLoginUrl() {
+        return "https://www2.link-elearning.com/linkdl/portal/signIn.php"
+                + "?hSajt=584826e70485130530f7f01a973d5637"
+                + "&notice=2";
+    }
+
+    public String getActualLoginUrl() {
         return driver.getCurrentUrl();
     }
 
