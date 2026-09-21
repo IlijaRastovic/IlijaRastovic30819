@@ -48,7 +48,7 @@ public class E2E extends BaseTest {
         Assert.assertTrue(homePage.getProfileImage().isDisplayed());
 
         homePage.clickProfileImage();
-        //homePage.clickLogOutButton();
+        homePage.clickLogOutButton();
 
         Assert.assertTrue(loginPage.getActualLoginUrl().startsWith(loginPage.getExpectedLoginUrl()));
         Assert.assertTrue(loginPage.getUsernameField().isDisplayed());
@@ -75,6 +75,51 @@ public class E2E extends BaseTest {
 
         homePage.clickNewMessagesLink();
         homePage.clickFirstMessage();
+        homePage.clickOpenedMessageDeleteButton();
+        homePage.confirmDeletePopUpMessasge();
+        homePage.confirmMessageDeletedPopUp();
+
+        Assert.assertTrue(homePage.isOpenedMessageDeleted(),"Opened message was not deleted.");
+
+        homePage.clickProfileImage();
+        homePage.clickLogOutButton();
+
+        Assert.assertTrue(loginPage.getActualLoginUrl().startsWith(loginPage.getExpectedLoginUrl()));
+        Assert.assertTrue(loginPage.getUsernameField().isDisplayed());
+        Assert.assertTrue(loginPage.getPasswordField().isDisplayed());
+
+    }
+
+
+    @Test (priority = 30)
+    public void shouldAskAiMentorAQestion(){
+        int rowNumber = 1;
+        String username = excelReader.getStringData("Sheet1", rowNumber,0);
+        String password = excelReader.getStringData("Sheet1", rowNumber,1);
+
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password");
+        loginPage.clickLoginButton();
+        homePage.waitForDashboard();
+
+        Assert.assertTrue(homePage.getActualUrl().contains("index.php"));
+        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"));
+        Assert.assertEquals(homePage.getPageTitle(), "Link Elearning");
+        Assert.assertTrue(homePage.getProfileImage().isDisplayed());
+
+        homePage.clickAiMentorOpenButton();
+        homePage.enterAiMentorQuestion("Koji AI model koristis");
+        homePage.clickAiMentorSendButton();
+        homePage.waitForAiMentorResponse();
+        homePage.clickAiMentorCloseButton();
+
+        homePage.clickProfileImage();
+        homePage.clickLogOutButton();
+
+        Assert.assertTrue(loginPage.getActualLoginUrl().startsWith(loginPage.getExpectedLoginUrl()));
+        Assert.assertTrue(loginPage.getUsernameField().isDisplayed());
+        Assert.assertTrue(loginPage.getPasswordField().isDisplayed());
 
 
     }

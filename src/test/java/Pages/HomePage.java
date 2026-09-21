@@ -1,5 +1,6 @@
 package Pages;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,16 @@ public class HomePage {
     private static final By FIRST_MESSAGE_LINK = By.cssSelector(
             "#mess-content ul.messages > li.message:first-of-type > a.uvodnaPoruka"
     );
+    private static final By OPENED_MESSAGE_DELETE_BUTTON =
+            By.cssSelector(
+                    "div.message-view button.obrisi-poruku[title='Obriši']");
+
+    private static final By OPENED_MESSAGE =
+            By.cssSelector("#mess-content div.message.message-view");
+
+    private static final By AI_MENTOR_RESPONSE =
+            By.cssSelector("section.chatbox-popup div.ai-message");
+
 
     public void waitForDashboard() {
 
@@ -172,10 +183,30 @@ public class HomePage {
     public WebElement getNewMessagesLink() {return driver.findElement(By.cssSelector("a[href*='c=licnePoruke']"));
     }
 
-
     public WebElement getFirstMessageLink() {
         return driver.findElement(FIRST_MESSAGE_LINK);
     }
+
+    public WebElement getOpenedMessageDeleteButton(){
+        return driver.findElement(OPENED_MESSAGE_DELETE_BUTTON);
+    }
+
+    public WebElement getAiMentorOpenButton() {
+        return driver.findElement(
+                By.cssSelector("button.chatbox-open")
+        );
+    }
+
+    public WebElement getAiMentorResponse() {
+        return driver.findElement(AI_MENTOR_RESPONSE);
+    }
+
+    public WebElement getAiMentorCloseButton() {
+        return driver.findElement(
+                By.cssSelector(".chatbox-close")
+        );
+    }
+
 
 
 
@@ -236,6 +267,8 @@ public class HomePage {
 
     public void clickLogOutButton(){
         getLogoutButton().click();
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.urlContains("signIn.php"));
     }
 
     public void clickNewMessagesLink() {
@@ -262,6 +295,92 @@ public class HomePage {
                 ))
                 .click();
     }
+
+    public void clickOpenedMessageDeleteButton(){
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(
+                        OPENED_MESSAGE_DELETE_BUTTON
+                ))
+                .click();
+    }
+
+    public void confirmDeletePopUpMessasge(){
+        Alert deletePopUp = new WebDriverWait(
+                driver,
+                Duration.ofSeconds(10)
+        ).until(ExpectedConditions.alertIsPresent());
+
+        deletePopUp.accept();
+    }
+
+    public void confirmMessageDeletedPopUp() {
+        Alert messageDeletedPopUp = new WebDriverWait(
+                driver,
+                Duration.ofSeconds(10)
+        ).until(ExpectedConditions.alertIsPresent());
+
+        messageDeletedPopUp.accept();
+    }
+
+    public boolean isOpenedMessageDeleted() {
+        WebElement openedMessage = driver.findElement(OPENED_MESSAGE);
+
+        boolean hasNoText = openedMessage.getText().isBlank();
+        boolean hasNoDeleteButton = openedMessage.findElements(
+                By.cssSelector("button.obrisi-poruku")
+        ).isEmpty();
+
+        return hasNoText && hasNoDeleteButton;
+    }
+
+    public void waitForOpenedMessageToBeDeleted() {
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(webDriver -> isOpenedMessageDeleted());
+    }
+
+    public void clickAiMentorOpenButton(){
+        getAiMentorOpenButton().click();
+
+    }
+
+    public void enterAiMentorQuestion(String question) {
+        WebElement questionField =
+                new WebDriverWait(driver, Duration.ofSeconds(10))
+                        .until(ExpectedConditions.elementToBeClickable(
+                                getAiMentorQuestionField()
+                        ));
+
+        questionField.clear();
+        questionField.sendKeys(question);
+    }
+
+    public void clickAiMentorSendButton() {
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(
+                        getAiMentorSendButton()
+                ))
+                .click();
+    }
+
+    public void waitForAiMentorResponse() {
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(30));
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                AI_MENTOR_RESPONSE
+        ));
+
+        wait.until(webDriver ->
+                !getAiMentorResponse().getText().isBlank()
+        );
+    }
+
+    public void clickAiMentorCloseButton() {
+        getAiMentorCloseButton().click();
+    }
+
+
+
 }
 
 
