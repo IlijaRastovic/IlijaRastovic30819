@@ -92,7 +92,7 @@ public class E2E extends BaseTest {
 
 
     @Test (priority = 30)
-    public void shouldAskAiMentorAQestion(){
+    public void shouldAskAiMentorAQuestion(){
         int rowNumber = 1;
         String username = excelReader.getStringData("Sheet1", rowNumber,0);
         String password = excelReader.getStringData("Sheet1", rowNumber,1);
