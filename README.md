@@ -2,6 +2,10 @@
 
 This repository contains a Selenium test automation project for the ITS online learning portal. It was developed as part of a graduation thesis and demonstrates Page Object Model (POM), data-driven testing (DDT), explicit waits, and end-to-end user flows.
 
+## Test documentation
+
+The documented test cases are available in [ITS Portal Test Cases](docs/test-cases/ITS%20Portal%20Test%20Cases.xlsx).
+
 ## Technology stack
 
 - Java 26
