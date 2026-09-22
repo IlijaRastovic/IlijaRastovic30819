@@ -79,7 +79,7 @@ public class LoginTest extends BaseTest {
         loginPage.clickLoginButton();
 
         Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Error msg is shown");
-        Assert.assertEquals(loginPage.getActualUrl(), driver.getCurrentUrl());
+        Assert.assertEquals(loginPage.getActualLoginUrl(), driver.getCurrentUrl());
 
     }
 
@@ -95,7 +95,7 @@ public class LoginTest extends BaseTest {
         loginPage.clickLoginButton();
 
         Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Error msg is shown");
-        Assert.assertEquals(loginPage.getActualUrl(), driver.getCurrentUrl());
+        Assert.assertEquals(loginPage.getActualLoginUrl(), driver.getCurrentUrl());
 
     }
 
@@ -112,7 +112,7 @@ public class LoginTest extends BaseTest {
         loginPage.clickLoginButton();
 
         Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Error msg is shown");
-        Assert.assertEquals(loginPage.getActualUrl(), driver.getCurrentUrl());
+        Assert.assertEquals(loginPage.getActualLoginUrl(), driver.getCurrentUrl());
 
     }
 
@@ -131,7 +131,7 @@ public class LoginTest extends BaseTest {
         loginPage.clickLoginButton();
 
         Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Error msg is shown");
-        Assert.assertEquals(loginPage.getActualUrl(), driver.getCurrentUrl());
+        Assert.assertEquals(loginPage.getActualLoginUrl(), driver.getCurrentUrl());
     }
 
     @Test (priority = 50)
@@ -177,23 +177,6 @@ public class LoginTest extends BaseTest {
         Assert.assertEquals(driver.switchTo().activeElement(), loginPage.getForgotPassword());
     }
 
-
-    //Helper test
-   /* @Test
-    public void testtestInvalid() {
-        int rowNumber = 1;
-        String username = "blabla";
-        String password = "blabla";
-
-        loginPage.enterValidUsername(username);
-        loginPage.enterValidPassword(password);
-        loginPage.clickLoginButton();
-
-        Assert.assertEquals(loginPage.getActualUrl(), driver.getCurrentUrl());
-
-    }
-
-    */
 }
 
 

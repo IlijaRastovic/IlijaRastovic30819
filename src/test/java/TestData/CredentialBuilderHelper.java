@@ -1,10 +1,8 @@
 package TestData;
 
 public class CredentialBuilderHelper {
-
-    public static String swapLetterCase(String value){
-
-        //Chancing the letters in the valid password from upper to lower and from lower to upper case
+    // Swaps uppercase and lowercase letters while leaving numbers and other characters unchanged.
+    public static String swapLetterCase(String value) {
         StringBuilder result = new StringBuilder();
 
         for (char character : value.toCharArray()) {
@@ -18,6 +16,5 @@ public class CredentialBuilderHelper {
         }
 
         return result.toString();
-
     }
 }
