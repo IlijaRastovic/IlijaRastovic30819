@@ -127,13 +127,8 @@ public class HomePage {
     }
 
     public void clickSaveSettingsButton() {
-        WebElement oldDashboard = getProfileImage();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.elementToBeClickable(SAVE_SETTINGS_BUTTON)).click();
-
-        // Waits for the old document to disappear before waiting for the refreshed dashboard.
-        wait.until(ExpectedConditions.stalenessOf(oldDashboard));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("profile-image")));
     }
 
     public void waitForLiveClassPanelToBeVisible() {
