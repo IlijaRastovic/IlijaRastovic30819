@@ -37,10 +37,10 @@ public class HomePageTests extends BaseTest {
 
             loginPage.shouldLogIn(username,password);
             homePage.waitForDashboard();
-            Assert.assertTrue(homePage.getActualUrl().contains("index.php"));
-            Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"));
-            Assert.assertEquals(homePage.getPageTitle(), "Link Elearning");
-            Assert.assertTrue(homePage.getProfileImage().isDisplayed());
+            Assert.assertTrue(homePage.getActualUrl().contains("index.php"), "Expected the portal page URL after login.");
+            Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"), "Expected to remain on the dashboard.");
+            Assert.assertEquals(homePage.getPageTitle(), "Link Elearning", "Expected the portal page title to be Link Elearning.");
+            Assert.assertTrue(homePage.getProfileImage().isDisplayed(), "Expected the profile image to be visible.");
     }
 
     //-----------------------------------TESTS-----------------------------------------------------------------------
@@ -58,10 +58,10 @@ public class HomePageTests extends BaseTest {
         homePage.clickSaveSettingsButton();
         wait.until(webDriver -> homePage.isDarkModeEnabled());
 
-        Assert.assertTrue(homePage.isDarkModeEnabled(),"Dark mode not loaded.");
-        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"));
-        Assert.assertEquals(homePage.getPageTitle(), "Link Elearning");
-        Assert.assertTrue(homePage.getProfileImage().isDisplayed());
+        Assert.assertTrue(homePage.isDarkModeEnabled(), "Expected dark mode to be enabled after saving settings.");
+        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"), "Expected to remain on the dashboard.");
+        Assert.assertEquals(homePage.getPageTitle(), "Link Elearning", "Expected the portal page title to be Link Elearning.");
+        Assert.assertTrue(homePage.getProfileImage().isDisplayed(), "Expected the profile image to be visible.");
 
     }
 
@@ -77,9 +77,9 @@ public class HomePageTests extends BaseTest {
         }
         homePage.closeLiveClassPanel();
 
-        Assert.assertFalse(homePage.isLiveClassPanelVisible(), "Live class panel is still visible after clicking close.");
-        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"));
-        Assert.assertTrue(homePage.getProfileImage().isDisplayed());
+        Assert.assertFalse(homePage.isLiveClassPanelVisible(), "Expected the live class panel to disappear after closing it.");
+        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"), "Expected to remain on the dashboard.");
+        Assert.assertTrue(homePage.getProfileImage().isDisplayed(), "Expected the profile image to be visible.");
     }
 
     @Test(priority = 30)
@@ -93,9 +93,9 @@ public class HomePageTests extends BaseTest {
         homePage.clickSaveSettingsButton();
         homePage.waitForLiveClassPanelToBeVisible();
 
-        Assert.assertTrue(homePage.isLiveClassPanelVisible(), "Live class panel is not visible after enabling it.");
-        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"));
-        Assert.assertTrue(homePage.getProfileImage().isDisplayed());
+        Assert.assertTrue(homePage.isLiveClassPanelVisible(), "Expected the live class panel to be visible after enabling it.");
+        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"), "Expected to remain on the dashboard.");
+        Assert.assertTrue(homePage.getProfileImage().isDisplayed(), "Expected the profile image to be visible.");
     }
 
 }

@@ -57,14 +57,14 @@ public class LoginTest extends BaseTest {
 
         loginPage.enterUsername(username);
         loginPage.enterPassword(password);
-        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password");
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password", "Password field should mask the entered password.");
         loginPage.clickLoginButton();
         homePage.waitForDashboard();
 
-        Assert.assertTrue(homePage.getActualUrl().contains("index.php"));
-        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"));
-        Assert.assertEquals(homePage.getPageTitle(), "Link Elearning");
-        Assert.assertTrue(homePage.getProfileImage().isDisplayed());
+        Assert.assertTrue(homePage.getActualUrl().contains("index.php"), "Expected the portal page URL after login.");
+        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"), "Expected to remain on the dashboard.");
+        Assert.assertEquals(homePage.getPageTitle(), "Link Elearning", "Expected the portal page title to be Link Elearning.");
+        Assert.assertTrue(homePage.getProfileImage().isDisplayed(), "Expected the profile image to be visible.");
 
     }
 
@@ -75,11 +75,11 @@ public class LoginTest extends BaseTest {
 
         loginPage.enterUsername(username);
         loginPage.enterPassword(password);
-        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password");
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password", "Password field should mask the entered password.");
         loginPage.clickLoginButton();
 
-        Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Error msg is shown");
-        Assert.assertEquals(loginPage.getActualLoginUrl(), driver.getCurrentUrl());
+        Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Expected an error message after unsuccessful login.");
+        Assert.assertEquals(loginPage.getActualLoginUrl(), driver.getCurrentUrl(), "Expected to remain on the login page.");
 
     }
 
@@ -91,11 +91,11 @@ public class LoginTest extends BaseTest {
 
         loginPage.enterUsername(username);
         loginPage.enterPassword(password);
-        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password");
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password", "Password field should mask the entered password.");
         loginPage.clickLoginButton();
 
-        Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Error msg is shown");
-        Assert.assertEquals(loginPage.getActualLoginUrl(), driver.getCurrentUrl());
+        Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Expected an error message after unsuccessful login.");
+        Assert.assertEquals(loginPage.getActualLoginUrl(), driver.getCurrentUrl(), "Expected to remain on the login page.");
 
     }
 
@@ -108,11 +108,11 @@ public class LoginTest extends BaseTest {
 
         loginPage.enterUsername(username);
         loginPage.enterPassword(password);
-        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password");
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password", "Password field should mask the entered password.");
         loginPage.clickLoginButton();
 
-        Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Error msg is shown");
-        Assert.assertEquals(loginPage.getActualLoginUrl(), driver.getCurrentUrl());
+        Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Expected an error message after unsuccessful login.");
+        Assert.assertEquals(loginPage.getActualLoginUrl(), driver.getCurrentUrl(), "Expected to remain on the login page.");
 
     }
 
@@ -127,11 +127,11 @@ public class LoginTest extends BaseTest {
 
         loginPage.enterUsername(username);
         loginPage.enterPassword(invalidPassword);
-        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password");
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password", "Password field should mask the entered password.");
         loginPage.clickLoginButton();
 
-        Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Error msg is shown");
-        Assert.assertEquals(loginPage.getActualLoginUrl(), driver.getCurrentUrl());
+        Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Expected an error message after unsuccessful login.");
+        Assert.assertEquals(loginPage.getActualLoginUrl(), driver.getCurrentUrl(), "Expected to remain on the login page.");
     }
 
     @Test (priority = 50)
@@ -144,14 +144,14 @@ public class LoginTest extends BaseTest {
 
         loginPage.enterUsername(invalidUsername);
         loginPage.enterPassword(validPassword);
-        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password");
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password", "Password field should mask the entered password.");
         loginPage.clickLoginButton();
         homePage.waitForDashboard();
 
-        Assert.assertTrue(homePage.getActualUrl().contains("index.php"));
-        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"));
-        Assert.assertEquals(homePage.getPageTitle(), "Link Elearning");
-        Assert.assertTrue(homePage.getProfileImage().isDisplayed());
+        Assert.assertTrue(homePage.getActualUrl().contains("index.php"), "Expected the portal page URL after login.");
+        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"), "Expected to remain on the dashboard.");
+        Assert.assertEquals(homePage.getPageTitle(), "Link Elearning", "Expected the portal page title to be Link Elearning.");
+        Assert.assertTrue(homePage.getProfileImage().isDisplayed(), "Expected the profile image to be visible.");
 
 
     }
@@ -162,19 +162,19 @@ public class LoginTest extends BaseTest {
 
         loginPage.getUsernameField().click();
 
-        Assert.assertEquals(driver.switchTo().activeElement(), loginPage.getUsernameField());
+        Assert.assertEquals(driver.switchTo().activeElement(), loginPage.getUsernameField(), "Expected focus on the username field.");
 
         loginPage.pressTab();
 
-        Assert.assertEquals(driver.switchTo().activeElement(), loginPage.getPasswordField());
+        Assert.assertEquals(driver.switchTo().activeElement(), loginPage.getPasswordField(), "Expected Tab to move focus to the password field.");
 
         loginPage.pressTab();
 
-        Assert.assertEquals(driver.switchTo().activeElement(),loginPage.getLoginButton());
+        Assert.assertEquals(driver.switchTo().activeElement(),loginPage.getLoginButton(), "Expected Tab to move focus to the login button.");
 
         loginPage.pressTab();
 
-        Assert.assertEquals(driver.switchTo().activeElement(), loginPage.getForgotPassword());
+        Assert.assertEquals(driver.switchTo().activeElement(), loginPage.getForgotPassword(), "Expected Tab to move focus to the forgot password link.");
     }
 
 }

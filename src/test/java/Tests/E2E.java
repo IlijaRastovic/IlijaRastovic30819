@@ -38,21 +38,21 @@ public class E2E extends BaseTest {
 
         loginPage.enterUsername(username);
         loginPage.enterPassword(password);
-        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password");
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password", "Password field should mask the entered password.");
         loginPage.clickLoginButton();
         homePage.waitForDashboard();
 
-        Assert.assertTrue(homePage.getActualUrl().contains("index.php"));
-        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"));
-        Assert.assertEquals(homePage.getPageTitle(), "Link Elearning");
-        Assert.assertTrue(homePage.getProfileImage().isDisplayed());
+        Assert.assertTrue(homePage.getActualUrl().contains("index.php"), "Expected the portal page URL after login.");
+        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"), "Expected to remain on the dashboard.");
+        Assert.assertEquals(homePage.getPageTitle(), "Link Elearning", "Expected the portal page title to be Link Elearning.");
+        Assert.assertTrue(homePage.getProfileImage().isDisplayed(), "Expected the profile image to be visible.");
 
         homePage.clickProfileImage();
         homePage.clickLogOutButton();
 
-        Assert.assertTrue(loginPage.getActualLoginUrl().startsWith(loginPage.getExpectedLoginUrl()));
-        Assert.assertTrue(loginPage.getUsernameField().isDisplayed());
-        Assert.assertTrue(loginPage.getPasswordField().isDisplayed());
+        Assert.assertTrue(loginPage.getActualLoginUrl().startsWith(loginPage.getExpectedLoginUrl()), "Expected to return to the login page after logout.");
+        Assert.assertTrue(loginPage.getUsernameField().isDisplayed(), "Expected the username field to be visible.");
+        Assert.assertTrue(loginPage.getPasswordField().isDisplayed(), "Expected the password field to be visible.");
 
     }
 
@@ -64,14 +64,14 @@ public class E2E extends BaseTest {
 
         loginPage.enterUsername(username);
         loginPage.enterPassword(password);
-        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password");
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password", "Password field should mask the entered password.");
         loginPage.clickLoginButton();
         homePage.waitForDashboard();
 
-        Assert.assertTrue(homePage.getActualUrl().contains("index.php"));
-        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"));
-        Assert.assertEquals(homePage.getPageTitle(), "Link Elearning");
-        Assert.assertTrue(homePage.getProfileImage().isDisplayed());
+        Assert.assertTrue(homePage.getActualUrl().contains("index.php"), "Expected the portal page URL after login.");
+        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"), "Expected to remain on the dashboard.");
+        Assert.assertEquals(homePage.getPageTitle(), "Link Elearning", "Expected the portal page title to be Link Elearning.");
+        Assert.assertTrue(homePage.getProfileImage().isDisplayed(), "Expected the profile image to be visible.");
 
         homePage.clickNewMessagesLink();
         homePage.clickFirstMessage();
@@ -79,14 +79,14 @@ public class E2E extends BaseTest {
         homePage.confirmDeletePopUpMessasge();
         homePage.confirmMessageDeletedPopUp();
 
-        Assert.assertTrue(homePage.isOpenedMessageDeleted(),"Opened message was not deleted.");
+        Assert.assertTrue(homePage.isOpenedMessageDeleted(), "Expected the opened message to be deleted.");
 
         homePage.clickProfileImage();
         homePage.clickLogOutButton();
 
-        Assert.assertTrue(loginPage.getActualLoginUrl().startsWith(loginPage.getExpectedLoginUrl()));
-        Assert.assertTrue(loginPage.getUsernameField().isDisplayed());
-        Assert.assertTrue(loginPage.getPasswordField().isDisplayed());
+        Assert.assertTrue(loginPage.getActualLoginUrl().startsWith(loginPage.getExpectedLoginUrl()), "Expected to return to the login page after logout.");
+        Assert.assertTrue(loginPage.getUsernameField().isDisplayed(), "Expected the username field to be visible.");
+        Assert.assertTrue(loginPage.getPasswordField().isDisplayed(), "Expected the password field to be visible.");
 
     }
 
@@ -99,14 +99,14 @@ public class E2E extends BaseTest {
 
         loginPage.enterUsername(username);
         loginPage.enterPassword(password);
-        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password");
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password", "Password field should mask the entered password.");
         loginPage.clickLoginButton();
         homePage.waitForDashboard();
 
-        Assert.assertTrue(homePage.getActualUrl().contains("index.php"));
-        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"));
-        Assert.assertEquals(homePage.getPageTitle(), "Link Elearning");
-        Assert.assertTrue(homePage.getProfileImage().isDisplayed());
+        Assert.assertTrue(homePage.getActualUrl().contains("index.php"), "Expected the portal page URL after login.");
+        Assert.assertTrue(homePage.getActualUrl().contains("f=dashboard"), "Expected to remain on the dashboard.");
+        Assert.assertEquals(homePage.getPageTitle(), "Link Elearning", "Expected the portal page title to be Link Elearning.");
+        Assert.assertTrue(homePage.getProfileImage().isDisplayed(), "Expected the profile image to be visible.");
 
         homePage.clickAiMentorOpenButton();
         homePage.enterAiMentorQuestion("Koji AI model koristis");
@@ -117,9 +117,9 @@ public class E2E extends BaseTest {
         homePage.clickProfileImage();
         homePage.clickLogOutButton();
 
-        Assert.assertTrue(loginPage.getActualLoginUrl().startsWith(loginPage.getExpectedLoginUrl()));
-        Assert.assertTrue(loginPage.getUsernameField().isDisplayed());
-        Assert.assertTrue(loginPage.getPasswordField().isDisplayed());
+        Assert.assertTrue(loginPage.getActualLoginUrl().startsWith(loginPage.getExpectedLoginUrl()), "Expected to return to the login page after logout.");
+        Assert.assertTrue(loginPage.getUsernameField().isDisplayed(), "Expected the username field to be visible.");
+        Assert.assertTrue(loginPage.getPasswordField().isDisplayed(), "Expected the password field to be visible.");
 
 
     }

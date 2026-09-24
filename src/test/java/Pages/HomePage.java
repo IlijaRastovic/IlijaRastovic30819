@@ -105,6 +105,8 @@ public class HomePage {
         return driver.findElement(By.cssSelector(".chatbox-close"));
     }
 
+    //------------------------------------------------------------------------------------------------------------
+
     public void openDashboardSettings() {
         getDashboardSettingsButton().click();
     }
