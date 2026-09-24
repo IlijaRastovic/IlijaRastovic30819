@@ -1,13 +1,21 @@
 package Base;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.UUID;
 
 import Pages.HomePage;
 import Pages.LoginPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.ITestResult;
+import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -41,12 +49,32 @@ public class BaseTest {
         }
     }
 
-    // Closes the browser even if the test or its setup fails.
+    // Captures a failed test before closing the browser.
     @AfterMethod(alwaysRun = true)
-    public void tearDown() {
+    public void tearDown(ITestResult result) {
         if (driver != null) {
-            driver.quit();
-            driver = null;
+            try {
+                if (result.getStatus() == ITestResult.FAILURE) {
+                    saveFailureScreenshot(result);
+                }
+            } finally {
+                driver.quit();
+                driver = null;
+            }
+        }
+    }
+
+    private void saveFailureScreenshot(ITestResult result) {
+        Path screenshot = Path.of("screenshots",
+                result.getTestClass().getRealClass().getSimpleName() + "_"
+                        + result.getMethod().getMethodName() + "_" + UUID.randomUUID() + ".png");
+
+        try {
+            Files.createDirectories(screenshot.getParent());
+            Files.write(screenshot, ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES));
+            Reporter.log("Screenshot: " + screenshot.toAbsolutePath(), true);
+        } catch (IOException | WebDriverException e) {
+            Reporter.log("Could not save screenshot for failed test: " + e.getMessage(), true);
         }
     }
 }

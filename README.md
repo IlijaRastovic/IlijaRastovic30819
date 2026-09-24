@@ -110,6 +110,10 @@ mvn -Dtest=Tests.E2E test
 
 The `shouldDeleteFirstMessage` E2E scenario permanently deletes the first message from the test account. Run this class only with data that may be changed by automated tests.
 
+## Screenshots on failure
+
+When a test fails, `BaseTest` saves a screenshot before closing Chrome. The image is stored in the local `screenshots/` directory, and its full path is printed in the TestNG output. Screenshots are ignored by Git and remain available after `mvn clean`.
+
 ## Design
 
 The project follows the Page Object Model:
