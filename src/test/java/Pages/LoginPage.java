@@ -12,7 +12,6 @@ public class LoginPage {
         this.driver = driver;
     }
 
-    // Sends TAB to the element that currently has focus.
     public void pressTab() {
         driver.switchTo().activeElement().sendKeys(Keys.TAB);
     }
@@ -40,7 +39,6 @@ public class LoginPage {
         ));
     }
 
-    // Keeps the login URL check independent of the optional notice parameter and URL fragment.
     public String getExpectedLoginUrl() {
         return "https://www2.link-elearning.com/linkdl/portal/signIn.php"
                 + "?hSajt=584826e70485130530f7f01a973d5637";
@@ -49,6 +47,8 @@ public class LoginPage {
     public String getActualLoginUrl() {
         return driver.getCurrentUrl();
     }
+
+    //Methodes ------------------------------------------------------------------------------------------------------------------
 
     public void enterUsername(String username) {
         getUsernameField().clear();
@@ -70,3 +70,15 @@ public class LoginPage {
         clickLoginButton();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

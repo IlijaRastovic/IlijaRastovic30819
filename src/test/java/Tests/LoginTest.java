@@ -75,11 +75,13 @@ public class LoginTest extends BaseTest {
 
         loginPage.enterUsername(username);
         loginPage.enterPassword(password);
-        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),"password", "Password field should mask the entered password.");
+        Assert.assertEquals(loginPage.getPasswordField().getDomAttribute("type"),
+                "password", "Password field should mask the entered password.");
         loginPage.clickLoginButton();
 
         Assert.assertTrue(loginPage.getErrorMsg().isDisplayed(), "Expected an error message after unsuccessful login.");
-        Assert.assertEquals(loginPage.getActualLoginUrl(), driver.getCurrentUrl(), "Expected to remain on the login page.");
+        Assert.assertEquals(loginPage.getActualLoginUrl(), driver.getCurrentUrl(),
+                "Expected to remain on the login page.");
 
     }
 

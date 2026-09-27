@@ -30,7 +30,6 @@ public class BaseTest {
     @BeforeClass
     public void setUp() throws IOException {
         WebDriverManager.chromedriver().setup();
-
         excelReader = new ExcelReader("src/test/java/TestData/DDT.xlsx");
     }
 

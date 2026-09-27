@@ -76,7 +76,7 @@ public class E2E extends BaseTest {
         homePage.clickNewMessagesLink();
         homePage.clickFirstMessage();
         homePage.clickOpenedMessageDeleteButton();
-        homePage.confirmDeletePopUpMessasge();
+        homePage.confirmDeletePopUpMessage();
         homePage.confirmMessageDeletedPopUp();
 
         Assert.assertTrue(homePage.isOpenedMessageDeleted(), "Expected the opened message to be deleted.");

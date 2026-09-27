@@ -49,7 +49,6 @@ public class HomePage {
     public WebElement getLiveClassPanel() {
         return driver.findElement(By.id("panel_101"));
     }
-
     // A hidden panel may be removed from the DOM, so an empty element list means false.
     public boolean isLiveClassPanelVisible() {
         return driver.findElements(By.id("panel_101"))
@@ -105,19 +104,17 @@ public class HomePage {
         return driver.findElement(By.cssSelector(".chatbox-close"));
     }
 
-    //------------------------------------------------------------------------------------------------------------
+    //Methods ------------------------------------------------------------------------------------------------------------
 
     public void openDashboardSettings() {
         getDashboardSettingsButton().click();
     }
-
     // Selects the checkbox only if dark mode is not already enabled.
     public void toggleDarkModeCheckBox() {
         if (!getDarkModeCheckBox().isSelected()) {
             getDarkModeCheckBox().click();
         }
     }
-
     // Selects the panel visibility checkbox only if it is not already selected.
     public void toggleLiveClassPanel() {
         WebElement checkbox = new WebDriverWait(driver, Duration.ofSeconds(10))
@@ -179,15 +176,13 @@ public class HomePage {
                 .until(ExpectedConditions.elementToBeClickable(OPENED_MESSAGE_DELETE_BUTTON))
                 .click();
     }
-
     // The first JavaScript popup asks the user to confirm message deletion.
-    public void confirmDeletePopUpMessasge() {
+    public void confirmDeletePopUpMessage() {
         Alert deletePopUp = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.alertIsPresent());
 
         deletePopUp.accept();
     }
-
     // The second popup confirms that the server deleted the message.
     public void confirmMessageDeletedPopUp() {
         Alert messageDeletedPopUp = new WebDriverWait(driver, Duration.ofSeconds(10))
@@ -195,7 +190,6 @@ public class HomePage {
 
         messageDeletedPopUp.accept();
     }
-
     // The portal keeps the message container but clears its content after deletion.
     public boolean isOpenedMessageDeleted() {
         WebElement openedMessage = driver.findElement(OPENED_MESSAGE);
@@ -225,7 +219,6 @@ public class HomePage {
                 .until(ExpectedConditions.elementToBeClickable(getAiMentorSendButton()))
                 .click();
     }
-
     // The test starts with an empty conversation and waits for the first visible response with text.
     public void waitForAiMentorResponse() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
